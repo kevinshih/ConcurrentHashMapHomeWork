@@ -16,22 +16,22 @@ import java.util.Map;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 
-public class ConcurrentHashMapHomeWorkWriteFiles extends Thread{
+public class ConcurrentHashMapHomeWorkWriteFiles2 extends Thread{
 	
 	List<String> list = new ArrayList<>();//the sequence of execution
     String token;//what the thread want write
     static ConcurrentHashMap<String, String> conCurrentMap = new ConcurrentHashMap<>();
     
-    public ConcurrentHashMapHomeWorkWriteFiles(List<String> list, String token) {
+    public ConcurrentHashMapHomeWorkWriteFiles2(List<String> list, String token) {
         this.list = list;
         this.token = token;
     }
     
     public static void main(String args[]) throws IOException {
     	createFile();
-    	Thread t1 = new Thread(new ConcurrentHashMapHomeWorkWriteFiles(getList("t1"),"123"));
-    	Thread t2 = new Thread(new ConcurrentHashMapHomeWorkWriteFiles(getList("t2"),"ABC"));
-    	Thread t3 = new Thread(new ConcurrentHashMapHomeWorkWriteFiles(getList("t3"),"Blockchain"));
+    	Thread t1 = new Thread(new ConcurrentHashMapHomeWorkWriteFiles2(getList("t1"),"123"));
+    	Thread t2 = new Thread(new ConcurrentHashMapHomeWorkWriteFiles2(getList("t2"),"ABC"));
+    	Thread t3 = new Thread(new ConcurrentHashMapHomeWorkWriteFiles2(getList("t3"),"Blockchain"));
     	t1.start();
     	t2.start();
     	t3.start();
@@ -65,7 +65,7 @@ public class ConcurrentHashMapHomeWorkWriteFiles extends Thread{
         		conCurrentMap.compute(path, (key, val) 
                         -> {
                         	try {
-                        		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(path))));
+                        		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(key))));
 								writer.write((val + token+"\n").replace("null",""));
 								writer.close();
 							} catch (IOException e) {
